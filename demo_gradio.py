@@ -33,9 +33,11 @@ model = VGGT()
 _URL = "https://huggingface.co/facebook/VGGT-1B/resolve/main/model.pt"
 model.load_state_dict(torch.hub.load_state_dict_from_url(_URL))
 
+# dtype = torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else torch.float16
+dtype = torch.float16
 
 model.eval()
-model = model.to(device)
+model = model.to(dtype).to(device)
 
 
 # -------------------------------------------------------------------------
@@ -68,7 +70,8 @@ def run_model(target_dir, model) -> dict:
 
     # Run inference
     print("Running inference...")
-    dtype = torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else torch.float16
+    # dtype = torch.bfloat16 if torch.cuda.get_device_capability()[0] >= 8 else torch.float16
+    dtype = torch.float16
 
     with torch.no_grad():
         with torch.cuda.amp.autocast(dtype=dtype):
