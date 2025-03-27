@@ -35,6 +35,9 @@ First, clone this repository to your local machine, and install the dependencies
 ```bash
 git clone git@github.com:facebookresearch/vggt.git 
 cd vggt
+# Daniele Tamino: set up a virtualenv (optional, recommended)
+virtualenv -p /usr/bin/python3 .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
